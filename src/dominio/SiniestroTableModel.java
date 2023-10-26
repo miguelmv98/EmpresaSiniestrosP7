@@ -1,19 +1,29 @@
 package dominio;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
+import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
 public class SiniestroTableModel extends AbstractTableModel
 {
 	String[] nombresColumnas = { "Domicilio", "Descripción", "Fecha", "Horas", "Coste" };
-	Object[][] datos = { { "Prueba", "Prueba mas laraga", LocalDate.of( 2023 , Month.OCTOBER , 26 ), LocalTime.of(9, 20), 100 } };
+	ArrayList<Siniestro> siniestros=new ArrayList<Siniestro>();
 	
 	public SiniestroTableModel(){};
 	public int getColumnCount() {return nombresColumnas.length; }
-	public int getRowCount() { return datos.length; }
-	public Object getValueAt(int row, int col) {return datos[row][col];}
+	public int getRowCount() { return siniestros.size(); }
 	public String getColumnName(int columnIndex) { return nombresColumnas[columnIndex];}
+	
+	public Object getValueAt(int row, int col) {
+		switch(col){
+			case 0: return siniestros.get(row).getDomicilio();
+			case 1: return siniestros.get(row).getDescripcion();
+			case 2: return siniestros.get(row).getFecha();
+			case 3: return siniestros.get(row).getHoras();
+			case 4: return siniestros.get(row).getCoste();
+			default : return null;
+		}
+	}
+	public void addRow(Siniestro siniestro) { siniestros.add(siniestro); }
+	
 }

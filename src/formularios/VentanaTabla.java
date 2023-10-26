@@ -1,28 +1,62 @@
 package formularios;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
+
+import dominio.Siniestro;
+import dominio.SiniestroTableModel;
+
+import javax.swing.JTable;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VentanaTabla extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JScrollPane contentPane;
-
+	JTable table;
+	SiniestroTableModel tableModel;
 
 	/**
 	 * Create the frame.
 	 */
 	public VentanaTabla() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JScrollPane();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane);
+		initialize();
+	}
+	
+	public VentanaTabla(Siniestro siniestro) {
+		initialize();
+		tableModel.addRow(siniestro);
 	}
 
+	private void initialize() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1200, 700);
+		getContentPane().setLayout(null);
+		
+		tableModel = new SiniestroTableModel();
+		table = new JTable(tableModel);
+		table.setFillsViewportHeight(false);
+		table.setAutoCreateRowSorter(true);
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(5, 5, 1175, 600);
+		getContentPane().add(scrollPane);
+		
+		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cerrar();
+			}
+		});
+		btnCerrar.setBounds(5, 610, 1175, 45);
+		getContentPane().add(btnCerrar);
+	}
+	
+	private void cerrar() 
+	{
+		this.dispose();
+	}
+	
 }
