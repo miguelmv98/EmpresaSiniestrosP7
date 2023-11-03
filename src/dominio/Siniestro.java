@@ -46,6 +46,10 @@ public class Siniestro {
 		validateFecha(fecha);
 		this.fecha = LocalDate.parse(fecha, DATE_FORMATTER);
 	}
+	public void setFecha(LocalDate fecha) 
+	{
+		this.fecha = fecha;
+	}
 	
 	private void validateFecha(String fecha) throws FechaValidationException
 	{

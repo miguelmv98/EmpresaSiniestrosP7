@@ -20,21 +20,17 @@ public class VentanaTabla extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaTabla() {
-		initialize();
-	}
-	
-	public VentanaTabla(Siniestro siniestro) {
-		initialize();
-		tableModel.addRow(siniestro);
+	public VentanaTabla(SiniestroTableModel tableModel) {
+		
+		initialize(tableModel);
 	}
 
-	private void initialize() {
+	private void initialize(SiniestroTableModel tableModel) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 700);
 		getContentPane().setLayout(null);
 		
-		tableModel = new SiniestroTableModel();
 		table = new JTable(tableModel);
 		table.setFillsViewportHeight(false);
 		table.setAutoCreateRowSorter(true);
