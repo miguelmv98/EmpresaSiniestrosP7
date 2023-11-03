@@ -3,7 +3,6 @@ package formularios;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-import dominio.Siniestro;
 import dominio.SiniestroTableModel;
 
 import javax.swing.JTable;
