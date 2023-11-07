@@ -7,6 +7,8 @@ import dominio.SiniestroTableModel;
 
 import javax.swing.JTable;
 import javax.swing.JButton;
+
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -20,12 +22,12 @@ public class VentanaTabla extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaTabla(SiniestroTableModel tableModel) {
-		
 		initialize(tableModel);
 	}
 
 	private void initialize(SiniestroTableModel tableModel) {
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/imagenes/shseguro.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 700);
 		getContentPane().setLayout(null);

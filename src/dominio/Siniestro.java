@@ -16,24 +16,17 @@ public class Siniestro {
 
 	public Siniestro() {};
 	
-	public Siniestro(String domicilio, String descripcion, String fecha, int horas, double coste) throws FechaValidationException {
+	public Siniestro(String domicilio, String descripcion, String fecha, String horas, String coste) throws FechaValidationException {
 		super();
 		this.domicilio = domicilio;
 		this.descripcion = descripcion;
 		validateFecha(fecha);
 		this.fecha = LocalDate.parse(fecha, DATE_FORMATTER);
-		this.horas = horas;
-		this.coste = coste;
+		this.horas = Integer.parseInt(horas);
+		this.coste = Double.parseDouble(coste);
 	}
-	public Siniestro(String domicilio, String descripcion, LocalDate fecha, int horas, double coste) {
-		super();
-		this.domicilio = domicilio;
-		this.descripcion = descripcion;
-		this.fecha = fecha;
-		this.horas = horas;
-		this.coste = coste;
-	}
-
+	
+	
 	public String getDomicilio() { return domicilio; }
 	public void setDomicilio(String domicilio) { this.domicilio = domicilio; }
 	
@@ -62,8 +55,7 @@ public class Siniestro {
 	public int getHoras() { return horas; }
 	public void setHoras(int horas) { this.horas = horas; }
 	
-	
+
 	public double getCoste() { return coste; }
 	public void setCoste(double coste) { this.coste = coste; }
-	
 }
