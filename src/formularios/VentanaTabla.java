@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.BorderLayout;
 
 public class VentanaTabla extends JFrame {
 
@@ -26,18 +27,16 @@ public class VentanaTabla extends JFrame {
 	}
 
 	private void initialize(SiniestroTableModel tableModel) {
-		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/imagenes/shseguro.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1200, 700);
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new BorderLayout(5, 5));
 		
 		table = new JTable(tableModel);
 		table.setFillsViewportHeight(false);
 		table.setAutoCreateRowSorter(true);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(5, 5, 1175, 600);
 		getContentPane().add(scrollPane);
 		
 		JButton btnCerrar = new JButton("Cerrar");
@@ -47,8 +46,7 @@ public class VentanaTabla extends JFrame {
 				cerrar();
 			}
 		});
-		btnCerrar.setBounds(5, 610, 1175, 45);
-		getContentPane().add(btnCerrar);
+		getContentPane().add(btnCerrar, BorderLayout.SOUTH);
 	}
 	
 	private void cerrar() 
