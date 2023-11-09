@@ -12,7 +12,6 @@ import javax.swing.SwingConstants;
 public class VentanaErrorDatos extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	JLabel lblMensajeError;
 
 	/**
@@ -26,16 +25,12 @@ public class VentanaErrorDatos extends JFrame {
 	private void initialize() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 300, 250);
-		contentPane = new JPanel();
-
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setBounds(100, 100, 400, 150);
+		getContentPane().setLayout(null);
 		
 		lblMensajeError = new JLabel("");
-		lblMensajeError.setHorizontalAlignment(SwingConstants.LEFT);
-		lblMensajeError.setBounds(10, 10, 266, 158);
-		contentPane.add(lblMensajeError);
+		lblMensajeError.setBounds(10, 10, 366, 64);
+		getContentPane().add(lblMensajeError);
 		
 		JButton btnNewButton = new JButton("Aceptar");
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -44,8 +39,8 @@ public class VentanaErrorDatos extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(94, 178, 100, 25);
-		contentPane.add(btnNewButton);
+		btnNewButton.setBounds(150, 82, 85, 21);
+		getContentPane().add(btnNewButton);
 	}
 	
 	private void setMensajeError(String mensajeError) 

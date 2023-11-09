@@ -134,7 +134,11 @@ public class VentanaPrincipal {
 		txtCoste.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				validarCaracteres(e);
+				char c = e.getKeyChar();
+				
+				if (!Character.isDigit(c)) {
+					e.consume();
+				}
 			}
 		});
 		txtCoste.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -158,8 +162,6 @@ public class VentanaPrincipal {
 		txtHoras.setBounds(29, 432, 192, 34);
 		panel.add(txtHoras);
 		txtHoras.setColumns(10);
-			
-		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		//convert String to LocalDate
 		txtFecha = new JTextField();
