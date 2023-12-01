@@ -19,18 +19,22 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class VentanaPrincipal {
 
-	private JFrame frmFormularioReparacin;
+	private JFrame frmFormularioReparacion;
 	private JTextField txtCoste;
 	private JTextField txtHoras;
 	private JTextField txtFecha;
 	private JTextField txtDescripcion;
 	private JTextField txtDomicilio;
+	private Locale localizacion;
+	private ResourceBundle mensajes;
 	
 	static SiniestroTableModel tableModel;
 
@@ -43,7 +47,7 @@ public class VentanaPrincipal {
 				try {
 					tableModel = new SiniestroTableModel();
 					VentanaPrincipal window = new VentanaPrincipal();
-					window.frmFormularioReparacin.setVisible(true);
+					window.frmFormularioReparacion.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -80,16 +84,16 @@ public class VentanaPrincipal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmFormularioReparacin = new JFrame();
-		frmFormularioReparacin.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/imagenes/shseguro.png")));
-		frmFormularioReparacin.setTitle("Formulario Siniestro");
-		frmFormularioReparacin.setResizable(false);
-		frmFormularioReparacin.setBounds(100, 100, 450, 300);
-		frmFormularioReparacin.setSize(500, 600);
-		frmFormularioReparacin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmFormularioReparacion = new JFrame();
+		frmFormularioReparacion.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/imagenes/shseguro.png")));
+		frmFormularioReparacion.setTitle("Formulario Siniestro");
+		frmFormularioReparacion.setResizable(false);
+		frmFormularioReparacion.setBounds(100, 100, 450, 300);
+		frmFormularioReparacion.setSize(500, 600);
+		frmFormularioReparacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		frmFormularioReparacin.getContentPane().add(panel, BorderLayout.CENTER);
+		frmFormularioReparacion.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
 		JLabel lbDomicilio = new JLabel("Domicilio:");
