@@ -3,34 +3,62 @@ package formularios;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import dominio.SiniestroTableModel;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+
+import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class VentanaSeleccionarIdioma extends JFrame {
+public class VentanaSeleccionarIdioma {
 
-	private static final long serialVersionUID = 3L;
+	private JFrame frmVentanaSeleccionarIdioma;
 	private JPanel contentPane;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaSeleccionarIdioma window = new VentanaSeleccionarIdioma();
+					window.frmVentanaSeleccionarIdioma.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public VentanaSeleccionarIdioma() {
 		
-		setResizable(false);
-		setTitle("Idioma");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 240, 160);
+		initialize();
+	}
+
+	private void initialize() {
+
+		frmVentanaSeleccionarIdioma = new JFrame();
+		frmVentanaSeleccionarIdioma.setResizable(false);
+		frmVentanaSeleccionarIdioma.setTitle("Idioma");
+		frmVentanaSeleccionarIdioma.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmVentanaSeleccionarIdioma.setBounds(100, 100, 240, 160);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
+		frmVentanaSeleccionarIdioma.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblSeleccionarIdioma = new JLabel("Seleccionar idioma de la aplicación");
@@ -46,23 +74,23 @@ public class VentanaSeleccionarIdioma extends JFrame {
 		btnSeleccionar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cambiarIdioma(comboIdiomas.getSelectedItem().toString());
-				dispose();
+				Locale localizacion = obtenerLocale(comboIdiomas.getSelectedItem().toString());
+				VentanaPrincipal ventana = new VentanaPrincipal(localizacion,ResourceBundle.getBundle("MisDatos",localizacion));
+				frmVentanaSeleccionarIdioma.dispose();
+				ventana.setVisible(true);
 			}
 		});
 		btnSeleccionar.setBounds(60, 100, 110, 25);
 		contentPane.add(btnSeleccionar);
 	}
-	private void cambiarIdioma(String idioma) {
+	private Locale obtenerLocale(String idioma) {
 		switch(idioma) {
 			case "Español":
-				VentanaPrincipal.localizacion = new Locale.Builder().setLanguage("es").setRegion("ES").build();
-				break;
+				return new Locale.Builder().setLanguage("es").setRegion("ES").build();
 			case "Ingles":
-				VentanaPrincipal.localizacion = new Locale.Builder().setLanguage("en").setRegion("US").build();
-				break;
+				return new Locale.Builder().setLanguage("en").setRegion("US").build();
 			default:
-				VentanaPrincipal.localizacion = Locale.getDefault();	
+				return Locale.getDefault();	
 		}
 	}
 }

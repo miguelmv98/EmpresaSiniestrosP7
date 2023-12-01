@@ -1,7 +1,5 @@
 package formularios;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 import dominio.FechaValidationException;
@@ -25,43 +23,28 @@ import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class VentanaPrincipal {
-
-	private JFrame frmFormularioReparacion;
+public class VentanaPrincipal extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtCoste;
 	private JTextField txtHoras;
 	private JTextField txtFecha;
 	private JTextField txtDescripcion;
 	private JTextField txtDomicilio;
-	public static Locale localizacion;
-	public static ResourceBundle mensajes;
-	
+	static Locale localizacion;
+	static ResourceBundle mensajes;
 	static SiniestroTableModel tableModel;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					tableModel = new SiniestroTableModel();
-					new VentanaSeleccionarIdioma().setVisible(true);
-					mensajes = ResourceBundle.getBundle("MisDatos",localizacion);
-					VentanaPrincipal window = new VentanaPrincipal();
-					window.frmFormularioReparacion.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public VentanaPrincipal() {
+	public VentanaPrincipal(Locale localizacion,ResourceBundle mensajes) {
+		tableModel = new SiniestroTableModel();
+		VentanaPrincipal.localizacion = localizacion;
+		VentanaPrincipal.mensajes = mensajes;
 		initialize();
 	}
 
@@ -87,16 +70,15 @@ public class VentanaPrincipal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmFormularioReparacion = new JFrame();
-		frmFormularioReparacion.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/imagenes/shseguro.png")));
-		frmFormularioReparacion.setTitle("Formulario Siniestro");
-		frmFormularioReparacion.setResizable(false);
-		frmFormularioReparacion.setBounds(100, 100, 450, 300);
-		frmFormularioReparacion.setSize(500, 600);
-		frmFormularioReparacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/imagenes/shseguro.png")));
+		this.setTitle("Formulario Siniestro");
+		this.setResizable(false);
+		this.setBounds(100, 100, 450, 300);
+		this.setSize(500, 600);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		frmFormularioReparacion.getContentPane().add(panel, BorderLayout.CENTER);
+		this.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
 		JLabel lbDomicilio = new JLabel("Domicilio:");
@@ -216,9 +198,5 @@ public class VentanaPrincipal {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_1.setBounds(29, 52, 407, 13);
 		panel.add(lblNewLabel_1);
-	}
-	
-	public void setLocale(Locale localizacion) {
-		this.localizacion = localizacion;
 	}
 }
