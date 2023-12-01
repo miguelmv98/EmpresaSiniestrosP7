@@ -33,8 +33,8 @@ public class VentanaPrincipal {
 	private JTextField txtFecha;
 	private JTextField txtDescripcion;
 	private JTextField txtDomicilio;
-	private Locale localizacion;
-	private ResourceBundle mensajes;
+	public static Locale localizacion;
+	public static ResourceBundle mensajes;
 	
 	static SiniestroTableModel tableModel;
 
@@ -45,7 +45,10 @@ public class VentanaPrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					tableModel = new SiniestroTableModel();
+					new VentanaSeleccionarIdioma().setVisible(true);
+					mensajes = ResourceBundle.getBundle("MisDatos",localizacion);
 					VentanaPrincipal window = new VentanaPrincipal();
 					window.frmFormularioReparacion.setVisible(true);
 				} catch (Exception e) {
@@ -213,5 +216,9 @@ public class VentanaPrincipal {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_1.setBounds(29, 52, 407, 13);
 		panel.add(lblNewLabel_1);
+	}
+	
+	public void setLocale(Locale localizacion) {
+		this.localizacion = localizacion;
 	}
 }
