@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ResourceBundle;
 import java.awt.BorderLayout;
 
 public class VentanaTabla extends JFrame {
@@ -18,11 +19,13 @@ public class VentanaTabla extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JTable table;
 	SiniestroTableModel tableModel;
+	static ResourceBundle mensajes;
 
 	/**
 	 * Create the frame.
 	 */
-	public VentanaTabla(SiniestroTableModel tableModel) {
+	public VentanaTabla(SiniestroTableModel tableModel,ResourceBundle mensajes) {
+		VentanaTabla.mensajes = mensajes;
 		initialize(tableModel);
 	}
 
@@ -39,7 +42,7 @@ public class VentanaTabla extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(table);
 		getContentPane().add(scrollPane);
 		
-		JButton btnCerrar = new JButton("Cerrar");
+		JButton btnCerrar = new JButton(mensajes.getString("salirT"));
 		btnCerrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

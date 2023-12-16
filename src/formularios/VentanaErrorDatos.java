@@ -7,17 +7,21 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ResourceBundle;
+
 import javax.swing.SwingConstants;
 
 public class VentanaErrorDatos extends JFrame {
 
 	private static final long serialVersionUID = 2L;
 	JLabel lblMensajeError;
+	static ResourceBundle mensajes;
 
 	/**
 	 * Create the frame.
 	 */
-	public VentanaErrorDatos(String mensajeError) {
+	public VentanaErrorDatos(String mensajeError, ResourceBundle mensajes) {
+		VentanaErrorDatos.mensajes = mensajes;
 		initialize();
 		setMensajeError(mensajeError);
 	}
@@ -32,7 +36,7 @@ public class VentanaErrorDatos extends JFrame {
 		lblMensajeError.setBounds(10, 10, 366, 64);
 		getContentPane().add(lblMensajeError);
 		
-		JButton btnNewButton = new JButton("Aceptar");
+		JButton btnNewButton = new JButton(mensajes.getString("aceptar"));
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
