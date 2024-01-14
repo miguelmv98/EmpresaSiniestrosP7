@@ -41,19 +41,27 @@ public class VentanaPrincipal extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	public VentanaPrincipal(Locale localizacion,ResourceBundle mensajes) {
-		tableModel = new SiniestroTableModel();
+	public VentanaPrincipal(Locale localizacion, ResourceBundle mensajes) {
 		VentanaPrincipal.localizacion = localizacion;
 		VentanaPrincipal.mensajes = mensajes;
 		initialize();
+		System.out.print(localizacion);
+		tableModel = new SiniestroTableModel(localizacion,mensajes);
 	}
 
 	private void btnGuardarMouseClicked(MouseEvent e) {
 		try {
-			tableModel.addRow(new Siniestro (txtDomicilio.getText(),txtDescripcion.getText(), txtFecha.getText(), txtHoras.getText(), txtCoste.getText()));
-			new VentanaTabla(tableModel).setVisible(true);
+			tableModel.addRow(new Siniestro (txtDomicilio.getText(),txtDescripcion.getText(), txtFecha.getText(), txtHoras.getText(), txtCoste.getText(), localizacion, mensajes));
+			
+			txtDomicilio.setText("");
+	        txtDescripcion.setText("");
+	        txtFecha.setText("");
+	        txtHoras.setText("");
+	        txtCoste.setText("");
+	        
+			new VentanaTabla(tableModel,mensajes).setVisible(true);
 		} catch (FechaValidationException e1) {
-			VentanaErrorDatos vent = new VentanaErrorDatos(e1.getMessage());
+			VentanaErrorDatos  vent = new VentanaErrorDatos(e1.getMessage(), mensajes);
 			vent.setVisible(true);
 		}
 		
@@ -69,9 +77,9 @@ public class VentanaPrincipal extends JFrame {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() {		
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/imagenes/shseguro.png")));
-		this.setTitle("Formulario Siniestro");
+		this.setTitle(mensajes.getString("titulo"));
 		this.setResizable(false);
 		this.setBounds(100, 100, 450, 300);
 		this.setSize(500, 600);
@@ -81,32 +89,32 @@ public class VentanaPrincipal extends JFrame {
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		JLabel lbDomicilio = new JLabel("Domicilio:");
+		JLabel lbDomicilio = new JLabel(mensajes.getString("domicilio"));
 		lbDomicilio.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lbDomicilio.setBounds(29, 85, 85, 13);
 		panel.add(lbDomicilio);
 		
-		JLabel lbDescripcion = new JLabel("Descripción: ");
+		JLabel lbDescripcion = new JLabel(mensajes.getString("descripcion"));
 		lbDescripcion.setFont(new Font("SansSerif", Font.PLAIN, 11));
 		lbDescripcion.setBounds(29, 156, 85, 13);
 		panel.add(lbDescripcion);
 		
-		JLabel lbFecha = new JLabel("Fecha:");
+		JLabel lbFecha = new JLabel(mensajes.getString("fecha"));
 		lbFecha.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lbFecha.setBounds(29, 345, 85, 13);
 		panel.add(lbFecha);
 		
-		JLabel lbHoras = new JLabel("Horas:");
+		JLabel lbHoras = new JLabel(mensajes.getString("horas"));
 		lbHoras.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lbHoras.setBounds(29, 416, 85, 13);
 		panel.add(lbHoras);
 		
-		JLabel lbCoste = new JLabel("Coste:");
+		JLabel lbCoste = new JLabel(mensajes.getString("coste"));
 		lbCoste.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lbCoste.setBounds(231, 416, 85, 13);
 		panel.add(lbCoste);
 		
-		JButton btnGuardar = new JButton("Guardar");
+		JButton btnGuardar = new JButton(mensajes.getString("guardar"));
 		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnGuardar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -178,7 +186,7 @@ public class VentanaPrincipal extends JFrame {
 		panel.add(txtDomicilio);
 		txtDomicilio.setColumns(10);
 		
-		JButton btnSalir = new JButton("Salir");
+		JButton btnSalir = new JButton(mensajes.getString("salir"));
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnSalir.addMouseListener(new MouseAdapter() {
 			@Override
@@ -189,12 +197,12 @@ public class VentanaPrincipal extends JFrame {
 		btnSalir.setBounds(342, 488, 111, 30);
 		panel.add(btnSalir);	
 		
-		JLabel lblNewLabel = new JLabel("Alta Reparación");
+		JLabel lblNewLabel = new JLabel(mensajes.getString("subtitulo"));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel.setBounds(29, 24, 198, 22);
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("A través del formulario podrás dar de alta una reparación del siniestro. ");
+		JLabel lblNewLabel_1 = new JLabel(mensajes.getString("contexto"));
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_1.setBounds(29, 52, 407, 13);
 		panel.add(lblNewLabel_1);

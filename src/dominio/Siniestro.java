@@ -1,23 +1,32 @@
 package dominio;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import formularios.VentanaPrincipal;
 
 public class Siniestro {
 
-	
+	static Locale localizacion;
+	static ResourceBundle mensajes;
 	private String domicilio;
 	private String descripcion;
 	private LocalDate fecha; 
 	private int horas;
 	private double coste;
+	private String importeLocale;
 	private final static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter
 	            .ofPattern("dd/MM/yyyy");
 
 	public Siniestro() {};
 	
-	public Siniestro(String domicilio, String descripcion, String fecha, String horas, String coste) throws FechaValidationException {
+	public Siniestro(String domicilio, String descripcion, String fecha, String horas, String coste, Locale localizacion,ResourceBundle mensajes) throws FechaValidationException {
 		super();
+		Siniestro.localizacion = localizacion;
+		Siniestro.mensajes = mensajes;
 		this.domicilio = domicilio;
 		this.descripcion = descripcion;
 		validateFecha(fecha);
@@ -48,7 +57,7 @@ public class Siniestro {
 	{
 		if(!fecha.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}")) 
 		{
-			throw new FechaValidationException("Formato de fecha incorrecto, el formato debe ser 'dd/MM/yyyy'");		
+			throw new FechaValidationException(mensajes.getString("error"));		
 		}
 	}
 	
@@ -56,6 +65,10 @@ public class Siniestro {
 	public void setHoras(int horas) { this.horas = horas; }
 	
 
-	public double getCoste() { return coste; }
+	public String getCoste() { 
+		NumberFormat formatoCoste = NumberFormat.getCurrencyInstance(localizacion);
+		importeLocale = formatoCoste.format(coste);
+		return importeLocale; 
+	}
 	public void setCoste(double coste) { this.coste = coste; }
 }
